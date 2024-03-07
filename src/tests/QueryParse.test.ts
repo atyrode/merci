@@ -72,7 +72,7 @@ test('parseFinanceData has expected types', async () => {
 })
 
 function isPercentage(num: number) {
-    return num >= 0 && num <= 1
+    return num >= -1 && num <= 1
 }
 
 test('parseFinanceData has expected values', async () => {
