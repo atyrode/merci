@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { getFinanceData } from '../components/api_request'
+import { getFinanceData } from '../services/ApiQuery'
 
 test('getFinanceData', async () => {
     const data = await getFinanceData()
