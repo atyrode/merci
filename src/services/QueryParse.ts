@@ -1,4 +1,4 @@
-import getFinanceData from '@/services/ApiQuery';
+import getFinanceData from '../services/ApiQuery';
 
 // We extract only the needed data from the finance data:
 // - Hotel name (string)

@@ -1,5 +1,5 @@
-import getFinanceData from '@/services/ApiQuery'
 import { expect, test } from 'vitest'
+import getFinanceData from '../services/ApiQuery'
 
 test('getFinanceData', async () => {
     const data = await getFinanceData()

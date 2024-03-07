@@ -1,5 +1,5 @@
-import parseFinanceData from '@/services/QueryParse'
 import { expect, test } from 'vitest'
+import parseFinanceData from '../services/QueryParse'
 
 test('parseFinanceData', async () => {
     expect(await parseFinanceData()).not.toBe(null)
