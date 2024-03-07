@@ -4,7 +4,6 @@ import parseFinanceData from "./QueryParse";
 const formatFinanceData = async () => {
     const data = await parseFinanceData();
     const formattedData = formatAsTable(data);
-    console.log(formattedData)
     return formattedData;
 };
 
