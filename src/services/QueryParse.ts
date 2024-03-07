@@ -1,4 +1,4 @@
-import getFinanceData from './ApiQuery';
+import getFinanceData from '@/services/ApiQuery';
 
 // We extract only the needed data from the finance data:
 // - Hotel name (string)
@@ -14,8 +14,14 @@ import getFinanceData from './ApiQuery';
 // - NOI (dollars)
 // - NOI Margin (percentage)
 
-export function parseFinanceData(financeData: any) {
-    const parsedData = financeData.map((hotel: any) => {
+const parseFinanceData = async () => {
+    const data = await getFinanceData(); // Wait for the API call to finish
+    const processedData = processData(data);
+    return processedData;
+};
+
+function processData(data: any) {
+    data = data.map((hotel: any) => {
         return {
             hotelName: hotel.hotel_reference.display_name,
             rooms: hotel.hotel_reference.rooms,
@@ -29,7 +35,9 @@ export function parseFinanceData(financeData: any) {
             ebitdaMargin: hotel.ebitda_margin,
             noi: hotel.noi,
             noiMargin: hotel.noi_margin
-        }
-    })
-    return parsedData;
+        };
+    });
+    return data;
 }
+
+export default parseFinanceData;
