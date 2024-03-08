@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     name: 'DynamicTable',
     props: {
@@ -29,10 +29,10 @@ export default {
         },
     },
     methods: {
-        humanFmt(value) {
+        humanFmt(value: string) {
             return value.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
         },
-        calculateAverage(rows, column) {
+        calculateAverage(rows: any[], column: { field: any; type: any; }) {
             let field = column.field;
             let type = column.type;
 
@@ -47,15 +47,15 @@ export default {
 
             if (type == "percentage") {
                 let percentage_average = average * 100;
-                percentage_average = percentage_average.toFixed(2);
-                return this.humanFmt(percentage_average) + "%";
+                const perc_avg = percentage_average.toFixed(2);
+                return this.humanFmt(perc_avg) + "%";
             }
             
-            average = average.toFixed(2);
+            let avg = average.toFixed(2);
             if (field != "rooms") {
-                average = "$" + average;
+                avg = "$" + average;
             }
-            return this.humanFmt(average);
+            return this.humanFmt(avg);
         }
     }
 };
@@ -205,4 +205,4 @@ $link-color: #409eff;
         border-bottom: 3px solid $border-color;
     }
 }
-</style>
+</style>: string | number: any[]: { field: any; type: any; }(: { [x: string]: number; }): string | number: any[]: { field: any; type: any; }(: { [x: string]: number; })
