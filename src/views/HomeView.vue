@@ -9,3 +9,5 @@
 import FinanceReport from '../components/FinanceReport.vue';
 </script>
   
+<style lang="scss">
+</style>

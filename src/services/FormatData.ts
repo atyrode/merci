@@ -37,7 +37,6 @@ function formatAsTable(data: any[]) {
         return `$${formatted}`;
     }
     
-
     // We do not have to format the percentage to two decimal places
     // because the vue-good-table-next library does it for us
     const columns = [
@@ -46,20 +45,27 @@ function formatAsTable(data: any[]) {
         { label: 'Rooms', field: 'rooms', type: 'number' },
         { label: 'Occ', field: 'occ', type: 'percentage' },
         { label: 'ADR', field: 'adr', type: 'number', formatFn: dollarFormatFn},
-        { label: 'RevPar', field: 'revPar', type: 'number', formatFn: formatFn},
-        { label: 'Total Rev', field: 'totalRev', type: 'number', formatFn: formatFn},
-        { label: 'GOP', field: 'gop', type: 'number', formatFn: formatFn},
+        { label: 'RevPar', field: 'revPar', type: 'number', formatFn: dollarFormatFn},
+        { label: 'Total Rev', field: 'totalRev', type: 'number', formatFn: dollarFormatFn},
+        { label: 'GOP', field: 'gop', type: 'number', formatFn: dollarFormatFn},
         { label: 'GOP Margin', field: 'gopMargin', type: 'percentage' },
-        { label: 'EBITDA', field: 'ebitda', type: 'number', formatFn: formatFn},
+        { label: 'EBITDA', field: 'ebitda', type: 'number', formatFn: dollarFormatFn},
         { label: 'EBITDA Margin', field: 'ebitdaMargin', type: 'percentage' },
-        { label: 'NOI', field: 'noi', type: 'number', formatFn: formatFn},
+        { label: 'NOI', field: 'noi', type: 'number', formatFn: dollarFormatFn},
         { label: 'NOI Margin', field: 'noiMargin', type: 'percentage' },
     ];
 
     // This is an idiomatic way of saying each row is a an object of the data
     // and we simply add it an id for the table to use
-    const rows = data.map((row, index) => ({ id: index + 1, ...row }));
+    const stats_rows = data.map((row, index) => ({ id: index + 1, ...row }));
 
+    // This groups the original data together to allow us to add the average row
+    // At the bottom of the table
+    const rows = [
+        {
+          children: stats_rows
+        },
+      ];
     return { columns, rows };
 }
 

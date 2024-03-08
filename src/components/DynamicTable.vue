@@ -1,7 +1,16 @@
 <template>
     <div>
-        <vue-good-table :columns="columns" :rows="rows" max-height="100vh" :fixed-header="true"
-            :row-style-class="row_style" styleClass="table_style">
+        <vue-good-table :columns="columns" :rows="rows" max-height="100vh" :fixed-header="true" styleClass="table_style"
+            :group-options="{
+            enabled: true,
+            headerPosition: 'bottom'
+        }">
+            <template #table-header-row="props" >
+                    <span class="average_row" v-if="props.column.field != 'id'">
+                        {{ calculateAverage(props.row.children, props.column) }}
+                    </span>
+                    
+            </template>
         </vue-good-table>
     </div>
 </template>
@@ -18,16 +27,37 @@ export default {
             type: Array,
             required: true,
         },
-        max_height: {
-            type: String,
-            required: true,
+    },
+    methods: {
+        humanFmt(value) {
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
         },
-    },
-    data() {
-        return {
-            row_style: 'row_style',
-        };
-    },
+        calculateAverage(rows, column) {
+            let field = column.field;
+            let type = column.type;
+
+            if (field == "hotelName") {
+                return 'Average';
+            }
+            let sum = 0;
+            rows.forEach(row => {
+                sum += row[field];
+            });
+            let average = sum / rows.length;
+
+            if (type == "percentage") {
+                let percentage_average = average * 100;
+                percentage_average = percentage_average.toFixed(2);
+                return this.humanFmt(percentage_average) + "%";
+            }
+            
+            average = average.toFixed(2);
+            if (field != "rooms") {
+                average = "$" + average;
+            }
+            return this.humanFmt(average);
+        }
+    }
 };
 </script>
 
@@ -55,6 +85,16 @@ $sort-chevron-margin-bottom: +10%; // So I had to hack in a mix of px and % to g
 // link
 $link-color: #409eff;
 
+.average_row {
+    font-weight: bold;
+    color: $link-color;
+}
+
+.vgt-row-header {
+    background-color: $darker-table-bg;
+    color: $header-text-color;
+    font-weight: bold;
+}
 
 .table_style {
 
@@ -71,15 +111,16 @@ $link-color: #409eff;
         padding: .75em .75em .75em .75em;
         vertical-align: top;
         border-bottom: 1px solid $border-color;
-
         color: $text-color;
+        text-align: left;
     }
 
     & th {
+        text-align: left;
         padding: .75em 1.5em .75em .75em;
         vertical-align: middle;
         position: relative;
-        
+
         // Sorting chevrons
         &.sortable {
             button {

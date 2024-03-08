@@ -89,7 +89,7 @@ test('formatFinanceData data row fits in the columns', async () => {
     const rows = formattedFinanceData.rows;
 
     rows.forEach((row: any) => {
-        Object.keys(row).forEach((key) => {
+        Object.keys(row.children[0]).forEach((key) => {
             const column = columns.find((column: any) => column.field === key)
             // Expect not to be undefined and we skip column "id"
             if (key === 'id') {
@@ -99,13 +99,13 @@ test('formatFinanceData data row fits in the columns', async () => {
                 throw new Error(`Column ${key} not found`)
             }
             if (column.type === 'percentage') {
-                expect(isPercentage(row[key])).toBeTruthy();
+                expect(isPercentage(row.children[0][key])).toBeTruthy();
             }
             if (column.type === 'number') {
-                expect(row[key]).toBeTypeOf('number')
+                expect(row.children[0][key]).toBeTypeOf('number')
             }
             if (column.type === 'string') {
-                expect(row[key]).toBeTypeOf('string')
+                expect(row.children[0][key]).toBeTypeOf('string')
             }
         })
     })
