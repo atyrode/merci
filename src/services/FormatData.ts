@@ -23,20 +23,20 @@ const formatFinanceData = async () => {
 
 function formatAsTable(data: any[]) {
 
+    
     // This is a function that takes a number and returns a string
-    // This is useful for formatting the ADR column
     const formatFn = (value: number) => {
-        // If value is float
-        if (value % 1 !== 0) {
-            return `${value.toFixed(2)}`;
-        }
-        return value.toString();
+        const fmtValue = value.toFixed(2);
+        
+        // We transform number like: 10582 to 10 582 with a regex
+        return fmtValue.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     };
 
     const dollarFormatFn = (value: number) => {
         const formatted = formatFn(value);
         return `$${formatted}`;
     }
+    
 
     // We do not have to format the percentage to two decimal places
     // because the vue-good-table-next library does it for us

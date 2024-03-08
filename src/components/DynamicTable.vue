@@ -1,6 +1,8 @@
 <template>
     <div>
-        <vue-good-table :columns="columns" :rows="rows" />
+        <vue-good-table :columns="columns" :rows="rows" max-height="100vh" :fixed-header="true"
+            :row-style-class="row_style" styleClass="table_style">
+        </vue-good-table>
     </div>
 </template>
 
@@ -15,8 +17,151 @@ export default {
         rows: {
             type: Array,
             required: true,
-        }
-    }
+        },
+        max_height: {
+            type: String,
+            required: true,
+        },
+    },
+    data() {
+        return {
+            row_style: 'row_style',
+        };
+    },
 };
 </script>
 
+<style lang="scss">
+$base-grey: var(--vt-c-divider-dark-1) !default;
+
+$table-bg: var(--vt-c-black-mute) !default;
+$lighter-table-bg: var(--vt-c-black-soft) !default;
+$darker-table-bg: var(--vt-c-black) !default;
+$text-color: var(--vt-c-text-dark-1) !default;
+
+$header-text-color: var(--vt-c-white-mute) !default;
+
+$border-color: $base-grey !default;
+
+$thead-bg-color-1: $darker-table-bg !default;
+$thead-bg-color-2: $darker-table-bg !default;
+
+$chevron-color: #42b883;
+$chevron-color-2: #2e7e5a;
+$sort-chevron-width: 7px;
+$sort-chevron-margin-top: -9px; // I don't know the original implementation of the module
+$sort-chevron-margin-bottom: +10%; // So I had to hack in a mix of px and % to get it to look right
+
+// link
+$link-color: #409eff;
+
+
+.table_style {
+
+    // Table base style
+    font-size: 16px;
+    border-collapse: collapse;
+    background-color: $table-bg;
+    width: 100%;
+    max-width: 100%;
+    table-layout: auto;
+    border: 1px solid $border-color;
+
+    & td {
+        padding: .75em .75em .75em .75em;
+        vertical-align: top;
+        border-bottom: 1px solid $border-color;
+
+        color: $text-color;
+    }
+
+    & th {
+        padding: .75em 1.5em .75em .75em;
+        vertical-align: middle;
+        position: relative;
+        
+        // Sorting chevrons
+        &.sortable {
+            button {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background: transparent;
+                border: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 0px;
+                    width: 0px;
+                    right: 6px;
+                    top: 50%;
+                    margin-top: $sort-chevron-margin-top;
+                    border-left: $sort-chevron-width solid transparent;
+                    border-right: $sort-chevron-width solid transparent;
+                    border-bottom: $sort-chevron-width solid $chevron-color;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    height: 0px;
+                    width: 0px;
+                    right: 6px;
+                    top: 50% + $sort-chevron-margin-bottom;
+                    border-left: $sort-chevron-width solid transparent;
+                    border-right: $sort-chevron-width solid transparent;
+                    border-top: $sort-chevron-width solid $chevron-color-2;
+                }
+            }
+        }
+    }
+
+    // Alternating table rows color
+    & tbody tr:nth-of-type(odd) {
+        background-color: $lighter-table-bg;
+    }
+
+    // Table header
+    thead th {
+        color: $header-text-color;
+        vertical-align: bottom;
+        text-align: center;
+        border-bottom: 1px solid $border-color;
+        padding-right: 1.5em;
+        background: linear-gradient($thead-bg-color-1, $thead-bg-color-2);
+
+        &.sorting-asc button {
+            &:after {
+                border-bottom: $sort-chevron-width solid $link-color;
+            }
+        }
+
+        &.sorting-desc button {
+            &:before {
+                border-top: $sort-chevron-width solid $link-color;
+            }
+        }
+    }
+
+    // Table borders
+    & td,
+    & th {
+        border: 1px solid $border-color;
+    }
+
+    // Header borders
+    & th.vgt-row-header {
+        border-bottom: 3px solid $border-color;
+    }
+}
+</style>
