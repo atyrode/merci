@@ -1,7 +1,11 @@
-<script setup lang="ts">
-</script>
-
+  
 <template>
-  <main>
-  </main>
-</template>
+    <main>
+      <FinanceReport />
+    </main>
+  </template>
+  
+<script setup lang="ts">
+import FinanceReport from '../components/FinanceReport.vue';
+</script>
+  
