@@ -22,11 +22,14 @@ test('formatFinanceData to have a matching column field per data field', async (
     const formattedFinanceData = await formatFinanceData();
     const formattedFinanceKeys = formattedFinanceData.columns.map((column: any) => column.field);
 
-    expect(parsedFinanceKeys).toHaveLength(formattedFinanceKeys.length);
+    expect(parsedFinanceKeys).toHaveLength(formattedFinanceKeys.length - 1); // We skip the "id" column
+    // We take it out of the array
+    formattedFinanceKeys.shift();
     expect(parsedFinanceKeys).toStrictEqual(formattedFinanceKeys);
 })
 
 // The table should have the following columns:
+// - ID (number)
 // - Hotel name (string)
 // - Rooms (number)
 // - Occ (percentage)
@@ -45,7 +48,7 @@ test('formatFinanceData has expected column type per data type', async () => {
     const columns = formattedFinanceData.columns;
 
     const shouldBePercentage = ['occ', 'gopMargin', 'ebitdaMargin', 'noiMargin']
-    const shouldBeNumber = ['rooms', 'adr', 'revPar', 'totalRev', 'gop', 'ebitda', 'noi']
+    const shouldBeNumber = ['rooms', 'adr', 'revPar', 'totalRev', 'gop', 'ebitda', 'noi', 'id']
     const shouldBeString = ['hotelName']
 
     shouldBePercentage.forEach((key) => {

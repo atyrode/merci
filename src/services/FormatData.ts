@@ -41,6 +41,7 @@ function formatAsTable(data: any[]) {
     // We do not have to format the percentage to two decimal places
     // because the vue-good-table-next library does it for us
     const columns = [
+        { label: 'ID', field: 'id', type: 'number'},
         { label: 'Hotel name', field: 'hotelName', type: 'string' },
         { label: 'Rooms', field: 'rooms', type: 'number' },
         { label: 'Occ', field: 'occ', type: 'percentage' },
