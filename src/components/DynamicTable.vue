@@ -209,4 +209,4 @@ $link-color: #409eff;
         border-bottom: 3px solid $border-color;
     }
 }
-</style>: string | number: any[]: { field: any; type: any; }(: { [x: string]: number; }): string | number: any[]: { field: any; type: any; }(: { [x: string]: number; })
+</style>
