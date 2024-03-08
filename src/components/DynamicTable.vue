@@ -43,19 +43,23 @@ export default {
             rows.forEach(row => {
                 sum += row[field];
             });
+
             let average = sum / rows.length;
 
             if (type == "percentage") {
-                let percentage_average = average * 100;
-                const perc_avg = percentage_average.toFixed(2);
-                return this.humanFmt(perc_avg) + "%";
+                const percentage_average = average * 100;
+                let nmbrFmted = percentage_average.toFixed(2);
+                let humanFmted = this.humanFmt(nmbrFmted);
+                return humanFmted + "%";
             }
             
-            let avg = average.toFixed(2);
+            let nmbrFmted = average.toFixed(2);
+            let humanFmted = this.humanFmt(nmbrFmted);
+
             if (field != "rooms") {
-                avg = "$" + average;
+                return "$" + humanFmted;
             }
-            return this.humanFmt(avg);
+            return humanFmted;
         }
     }
 };
