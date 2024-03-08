@@ -58,7 +58,7 @@ function formatAsTable(data: any[]) {
 
     // This is an idiomatic way of saying each row is a an object of the data
     // and we simply add it an id for the table to use
-    const rows = data.map((row, index) => ({ id: index, ...row }));
+    const rows = data.map((row, index) => ({ id: index + 1, ...row }));
 
     return { columns, rows };
 }
