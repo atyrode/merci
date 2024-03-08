@@ -14,7 +14,7 @@ interface Column {
 }
 
 interface Row {
-  [key: string]: string | number;
+  [key: string]: string | number | Row[]; // Allow 'children' to be an array of Row
 }
 
 // Here we declare the reactive variables that will hold the columns and rows
