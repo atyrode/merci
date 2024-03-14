@@ -33,8 +33,8 @@ export default {
             return value.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
         },
         calculateAverage(rows: any[], column: { field: any; type: any; }) {
-            let field = column.field;
-            let type = column.type;
+            const field = column.field;
+            const type = column.type;
 
             if (field == "hotelName") {
                 return 'Average';
