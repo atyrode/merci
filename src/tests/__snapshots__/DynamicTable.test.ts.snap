@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DynamicTable > renders correctly 1`] = `
+"<div>
+  <vue-good-table-stub columns="" rows="" max-height="100vh" fixed-header="true" styleclass="table_style" group-options="[object Object]"></vue-good-table-stub>
+</div>"
+`;
+
+exports[`DynamicTable with data > renders correctly 1`] = `
+"<div>
+  <vue-good-table-stub columns="[object Object],[object Object]" rows="[object Object],[object Object]" max-height="100vh" fixed-header="true" styleclass="table_style" group-options="[object Object]"></vue-good-table-stub>
+</div>"
+`;
